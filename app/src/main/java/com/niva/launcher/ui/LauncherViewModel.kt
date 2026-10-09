@@ -32,6 +32,9 @@ import com.niva.launcher.data.LauncherSettings
 import com.niva.launcher.data.ClockStyle
 import com.niva.launcher.data.PresetStore
 import com.niva.launcher.data.AppearancePreset
+import com.niva.launcher.data.SettingsBackup
+import com.niva.launcher.data.BackupPreferences
+import com.niva.launcher.data.ParsedBackup
 import com.niva.launcher.data.LauncherSettingsRepository
 import com.niva.launcher.data.LauncherShortcut
 import com.niva.launcher.data.ScheduleEvent
