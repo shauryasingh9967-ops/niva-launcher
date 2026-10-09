@@ -1,0 +1,30 @@
+name: Remove stale pre-rename files
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Delete stale paths
+        run: |
+          git rm -r -q app/src/main/java/com/galaxyrio || echo "main galaxyrio already gone"
+          git rm -r -q app/src/test/java/com/galaxyrio || echo "test galaxyrio already gone"
+          git rm -r -q app/src/androidTest/java/com/galaxyrio || echo "androidTest galaxyrio already gone"
+          git rm -q app/src/main/res/xml/grace_accessibility_service.xml || echo "old xml already gone"
+          git rm -r -q app/schemas/com.galaxyrio.gracelauncher.data.LauncherDatabase || echo "old schemas already gone"
+          rm -f .github/workflows/cleanup.yml
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "Shaurya Singh"
+          git config user.email "shauryasingh9967@gmail.com"
+          git add -A
+          git commit -m "fix: remove stale pre-rename files left by overlay upload" || echo "nothing to commit"
+          git push origin HEAD:main
