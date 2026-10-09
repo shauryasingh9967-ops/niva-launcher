@@ -155,6 +155,7 @@ fun LauncherRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val activity = LocalActivity.current
     val chooseAppStoreTitle = stringResource(R.string.choose_app_store)
     val launchView = LocalView.current
     val appTransitions = LocalAppTransitions.current
@@ -170,7 +171,7 @@ fun LauncherRoute(
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            LocalActivity.current?.let(viewModel.privateSpaceController::cancelAuthentication)
+            activity?.let(viewModel.privateSpaceController::cancelAuthentication)
             viewModel.privateSpaceController.close()
         }
     }
@@ -220,9 +221,9 @@ fun LauncherRoute(
         val state = controller.state.value
         if (!settings.enabled || user == null || user != state.user) return
         if (!state.locked && (state.accessible || settings.exposesApps)) { ready(); return }
-        val activity = LocalActivity.current ?: return
-        controller.unlock(activity, authenticate = settings.protectsApps) {
-            activity.lifecycleScope.launch {
+        val currentActivity = activity ?: return
+        controller.unlock(currentActivity, authenticate = settings.protectsApps) {
+            currentActivity.lifecycleScope.launch {
                 yield()
                 activity.lifecycle.withResumed {
                     if (controller.state.value.user == user && !controller.state.value.locked &&
@@ -279,14 +280,14 @@ fun LauncherRoute(
         requestPrivateSpace = { forceAuthentication, ready ->
             val settings = viewModel.uiState.value.settings.privateSpace
             if (settings.exposesApps && !forceAuthentication) ready()
-            else LocalActivity.current?.let { activity ->
-                viewModel.privateSpaceController.unlock(activity, authenticate = forceAuthentication || settings.protectsApps,
+            else activity?.let { a ->
+                viewModel.privateSpaceController.unlock(a, authenticate = forceAuthentication || settings.protectsApps,
                     forceAuthentication = forceAuthentication) {
-                    activity.lifecycleScope.launch {
+                    a.lifecycleScope.launch {
                         // Availability can arrive while Android's credential Activity is still
                         // closing. Let NavHost receive RESUME before its guarded navigation.
                         yield()
-                        activity.lifecycle.withResumed {
+                        a.lifecycle.withResumed {
                             if (viewModel.privateSpaceController.state.value.accessible) ready()
                         }
                     }
@@ -294,7 +295,7 @@ fun LauncherRoute(
             }
         },
         closePrivateSpace = viewModel.privateSpaceController::close,
-        openPrivateSpaceSettings = { LocalActivity.current?.let(viewModel.privateSpaceController::openSettings) },
+        openPrivateSpaceSettings = { activity?.let(viewModel.privateSpaceController::openSettings) },
         reorderPrivateApps = viewModel::reorderPrivateApps,
         resetPrivateSpaceAppearance = viewModel::resetPrivateSpaceAppearance,
         reorderWorkApps = viewModel::reorderWorkApps,
@@ -327,7 +328,7 @@ fun LauncherRoute(
                 breezyRepository.installedPackage() == null -> viewModel.refreshWeather()
                 ContextCompat.checkSelfPermission(context, BreezyWeatherRepository.READ_PERMISSION) == PackageManager.PERMISSION_GRANTED ->
                     viewModel.refreshWeather()
-                weatherPermissionRequested && LocalActivity.current?.let {
+                weatherPermissionRequested && activity?.let {
                     ActivityCompat.shouldShowRequestPermissionRationale(it, BreezyWeatherRepository.READ_PERMISSION)
                 } != true -> openSystemApp(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                     Uri.fromParts("package", context.packageName, null)))
@@ -394,7 +395,7 @@ fun LauncherRoute(
         rememberShortcut = viewModel::rememberShortcut,
         updatePopup = viewModel::updatePopup,
         addPopupWidget = { owner, defaults ->
-            LocalActivity.current?.lifecycleScope?.launch {
+            activity?.lifecycleScope?.launch {
                 if (viewModel.ensurePopup(owner, defaults)) openSystemApp(Intent(context, WidgetSetupActivity::class.java)
                     .putExtra(WidgetSetupActivity.EXTRA_POPUP_OWNER, owner.key))
                 else Toast.makeText(context, R.string.settings_storage_save_error, Toast.LENGTH_SHORT).show()
@@ -467,7 +468,7 @@ fun LauncherRoute(
         // cross-task/back-to-home animation of this regular settings Activity.
         val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
         SideEffect {
-            LocalActivity.current?.window?.let { window ->
+            activity?.window?.let { window ->
                 WindowInsetsControllerCompat(window, launchView).apply {
                     isAppearanceLightStatusBars = lightBars
                     isAppearanceLightNavigationBars = lightBars
