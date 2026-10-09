@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.galaxyrio.gracelauncher"
+    namespace = "com.niva.launcher"
     compileSdk = 37
     buildToolsVersion = "36.1.0"
 

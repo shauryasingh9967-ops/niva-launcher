@@ -17,7 +17,7 @@ try {
     # Requires English UI, installed Monocons/Gmail/Chrome and one local song with cover art.
     # Each scene changes the emulator's real wallpaper; Material You follows its colors.
     $captureArguments = @(':app:connectedDebugAndroidTest',
-        '-Pandroid.testInstrumentationRunnerArguments.class=com.galaxyrio.gracelauncher.StoreScreenshotTest',
+        '-Pandroid.testInstrumentationRunnerArguments.class=com.niva.launcher.StoreScreenshotTest',
         '-Pandroid.testInstrumentationRunnerArguments.storeScreenshots=true')
     if ($Scenes) { $captureArguments += "-Pandroid.testInstrumentationRunnerArguments.storeScreenshotScenes=$Scenes" }
     & "$captureProjectRoot/gradlew.bat" @captureArguments
@@ -30,7 +30,7 @@ try {
         '09-icon-packs.png', '10-icon-designer.png')
     if ($Scenes) { $captureNames = @($captureNames | Where-Object { $_.Substring(0, 2) -in $Scenes.Split(',') }) }
     foreach ($captureName in $captureNames) {
-        & $captureAdb -s $Device pull "/sdcard/Download/grace-launcher-store-screenshots/$captureName" (Join-Path $captureDestination $captureName)
+        & $captureAdb -s $Device pull "/sdcard/Download/niva-launcher-store-screenshots/$captureName" (Join-Path $captureDestination $captureName)
         if ($LASTEXITCODE -ne 0) { throw "Could not retrieve $captureName" }
     }
     Write-Output "Saved $($captureNames.Count) English screenshots to $captureDestination"

@@ -43,7 +43,7 @@ Requires OpenJDK 21, Android SDK Platform 37 and Build Tools 36.1.0 (as configur
 Release: create a keystore, add a `signingConfigs` entry (keep secrets out of git), then `./gradlew :app:assembleRelease`
 (R8 optimization is already enabled). Review [NOTICE.md](NOTICE.md) before distributing.
 
-Minimum Android: 9 (API 28). Application id: `com.niva.launcher` (the Kotlin namespace remains `com.galaxyrio.gracelauncher` to keep the fork's diff small and safe).
+Minimum Android: 9 (API 28). Application id and Kotlin namespace: `com.niva.launcher`.
 
 ## Privacy and permissions
 

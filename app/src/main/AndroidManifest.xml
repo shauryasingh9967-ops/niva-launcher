@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <!-- Requested only when the user explicitly enables local contact search. -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- Hidden profiles are accessible only while Grace holds the default HOME role. -->
+    <!-- Hidden profiles are accessible only while Niva holds the default HOME role. -->
     <uses-permission android:name="android.permission.ACCESS_HIDDEN_PROFILES" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <!-- Actual widget binding is still granted by the user through Android's bind UI. -->
@@ -35,7 +35,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GraceLauncher"
+        android:theme="@style/Theme.NivaLauncher"
         tools:targetApi="33">
         <!-- The official Breezy notifier requires an exported receiver and defines no
              sender permission. Payloads are ignored; signals only coalesce a read of
@@ -50,7 +50,7 @@
         </receiver>
         <!-- Explicit, user-authorized lock-screen and system-panel actions only. -->
         <service
-            android:name=".platform.GraceAccessibilityService"
+            android:name=".platform.NivaAccessibilityService"
             android:label="@string/app_name"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
@@ -59,7 +59,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/grace_accessibility_service" />
+                android:resource="@xml/niva_accessibility_service" />
         </service>
         <!-- System-managed binding for app notification previews and media sessions. -->
         <service
@@ -79,7 +79,7 @@
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.GraceLauncher.Home"
+            android:theme="@style/Theme.NivaLauncher.Home"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,7 +92,7 @@
             android:name=".PinItemActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:theme="@style/Theme.GraceLauncher.Settings">
+            android:theme="@style/Theme.NivaLauncher.Settings">
             <intent-filter>
                 <action android:name="android.content.pm.action.CONFIRM_PIN_SHORTCUT" />
                 <action android:name="android.content.pm.action.CONFIRM_PIN_APPWIDGET" />
@@ -102,12 +102,12 @@
         <activity
             android:name=".WidgetSetupActivity"
             android:exported="false"
-            android:theme="@style/Theme.GraceLauncher.Settings" />
+            android:theme="@style/Theme.NivaLauncher.Settings" />
         <activity
             android:name=".SettingsActivity"
             android:exported="true"
-            android:label="@string/grace_settings"
-            android:theme="@style/Theme.GraceLauncher.Settings"
+            android:label="@string/niva_settings"
+            android:theme="@style/Theme.NivaLauncher.Settings"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

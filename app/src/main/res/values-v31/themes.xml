@@ -2,7 +2,7 @@
 <resources>
     <!-- Background blur requires a translucent Window, not just a transparent
          background drawable. Keep this local to HOME, not settings or widget setup. -->
-    <style name="Theme.GraceLauncher.Home" parent="Theme.GraceLauncher">
+    <style name="Theme.NivaLauncher.Home" parent="Theme.NivaLauncher">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

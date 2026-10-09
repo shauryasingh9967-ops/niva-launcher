@@ -79,7 +79,7 @@
     <string name="popup_empty">Wähle unten Verknüpfungen, Apps oder Widgets aus.</string>
     <string name="popup_item_unavailable">Element nicht verfügbar</string>
     <string name="store_page">Store-Seite öffnen</string>
-    <string name="grace_settings">Niva-Einstellungen</string>
+    <string name="niva_settings">Niva-Einstellungen</string>
     <string name="done">Fertig</string>
     <string name="save">Speichern</string>
     <string name="cancel">Abbrechen</string>

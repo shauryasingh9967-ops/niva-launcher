@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.GraceLauncher" parent="android:style/Theme.Material.NoActionBar">
+    <style name="Theme.NivaLauncher" parent="android:style/Theme.Material.NoActionBar">
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -13,10 +13,10 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
     <!-- Android 12+ supplies the translucent HOME variant for background blur. -->
-    <style name="Theme.GraceLauncher.Home" parent="Theme.GraceLauncher" />
+    <style name="Theme.NivaLauncher.Home" parent="Theme.NivaLauncher" />
 
     <!-- Settings is a regular application task, never a second HOME task. -->
-    <style name="Theme.GraceLauncher.Settings" parent="Theme.GraceLauncher">
+    <style name="Theme.NivaLauncher.Settings" parent="Theme.NivaLauncher">
         <!-- Only the clock preview is transparent; ordinary settings remain opaque. -->
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
