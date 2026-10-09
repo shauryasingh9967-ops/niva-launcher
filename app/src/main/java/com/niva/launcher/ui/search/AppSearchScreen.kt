@@ -160,7 +160,9 @@ internal fun AppSearchScreen(
             ),
         )
     }
-    val results: List<SearchResult> = remember(apps, names, contacts, query, settings, hasContactsAccess, searchActions) {
+    // Resolve action titles with stringResource (configuration-aware) for the search filter below.
+    val actionTitles = searchActions.associate { it.id to stringResource(it.titleRes) }
+    val results: List<SearchResult> = remember(apps, names, contacts, query, settings, hasContactsAccess, searchActions, actionTitles) {
         if (query.isEmpty()) {
             if (settings.suggestions) {
                 val byKey = apps.associateBy { it.key }
@@ -177,7 +179,7 @@ internal fun AppSearchScreen(
                 contact.score(term)?.let { it to contact }
             }.sortedBy { it.first } else emptyList()
             val matchedActions = searchActions.filter { action ->
-                val haystack = (context.getString(action.titleRes) + " " + action.keywords.joinToString(" ")).lowercase()
+                val haystack = ((actionTitles[action.id] ?: "") + " " + action.keywords.joinToString(" ")).lowercase()
                 query.lowercase().split("\\s+".toRegex()).filter { it.length >= 2 }.any { it in haystack }
             }
             buildList {
