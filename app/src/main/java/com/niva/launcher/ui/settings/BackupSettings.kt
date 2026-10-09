@@ -42,6 +42,12 @@ internal fun BackupSettings(
     var busy by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
     var confirmImport by remember { mutableStateOf<String?>(null) }
+    // Configuration-aware strings for use in non-composable callbacks below.
+    val strExportFailed = stringResource(R.string.backup_export_failed)
+    val strExportDone = stringResource(R.string.backup_export_done)
+    val strImportFailed = stringResource(R.string.backup_import_failed)
+    val strImportDone = stringResource(R.string.backup_import_done)
+    val strInvalid = stringResource(R.string.backup_invalid)
 
     fun readText(uri: Uri, onResult: (String?) -> Unit) {
         scope.launch(Dispatchers.IO) {
@@ -70,12 +76,12 @@ internal fun BackupSettings(
             val json = runCatching { actions.exportBackup() }.getOrNull()
             if (json == null) {
                 busy = false
-                message = context.getString(R.string.backup_export_failed)
+                message = strExportFailed
                 return@launch
             }
             writeText(uri, json) { ok ->
                 busy = false
-                message = context.getString(if (ok) R.string.backup_export_done else R.string.backup_export_failed)
+                message = if (ok) strExportDone else strExportFailed
             }
         }
     }
@@ -86,7 +92,7 @@ internal fun BackupSettings(
         readText(uri) { text ->
             if (text == null) {
                 busy = false
-                message = context.getString(R.string.backup_import_failed)
+                message = strImportFailed
                 return@readText
             }
             // Validate before asking for confirmation; never apply unvalidated data.
@@ -94,11 +100,11 @@ internal fun BackupSettings(
                 SettingsBackup.parse(text)
             } catch (e: SettingsBackup.InvalidBackupException) {
                 busy = false
-                message = context.getString(R.string.backup_invalid, e.message ?: "")
+                message = strInvalid.format(e.message ?: "")
                 return@readText
             } catch (e: Exception) {
                 busy = false
-                message = context.getString(R.string.backup_import_failed)
+                message = strImportFailed
                 return@readText
             }
             busy = false
@@ -132,7 +138,7 @@ internal fun BackupSettings(
                             false
                         }
                         busy = false
-                        message = context.getString(if (ok) R.string.backup_import_done else R.string.backup_import_failed)
+                        message = if (ok) strImportDone else strImportFailed
                     }
                 }) { Text(stringResource(R.string.backup_import_confirm_button)) }
             },
