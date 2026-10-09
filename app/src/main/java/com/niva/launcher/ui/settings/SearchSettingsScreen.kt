@@ -1,7 +1,7 @@
 package com.niva.launcher.ui.settings
 
 import android.Manifest
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
@@ -77,7 +77,7 @@ internal fun SearchSettingsScreen(uiState: LauncherUiState, actions: LauncherAct
                 SettingsToggleItem(stringResource(R.string.search_contacts), stringResource(R.string.search_contacts_summary),
                     settings.contacts && hasAccess, 1, 6, "search_contacts", enabled = settings.enabled) { value ->
                     if (!value || contacts.hasAccess()) update { it.copy(contacts = value) }
-                    else if (permissionRequested && (context as? Activity)?.let {
+                    else if (permissionRequested && LocalActivity.current?.let {
                         ActivityCompat.shouldShowRequestPermissionRationale(it, Manifest.permission.READ_CONTACTS)
                     } == false) {
                         systemSettings.launch(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.packageName, null)))

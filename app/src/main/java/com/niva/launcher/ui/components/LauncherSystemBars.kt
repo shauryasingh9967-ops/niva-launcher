@@ -3,7 +3,7 @@ package com.niva.launcher.ui.components
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import android.graphics.Color
 import android.os.Build
 import android.os.CancellationSignal
@@ -43,7 +43,7 @@ internal fun rememberLauncherSystemBars(
     darkIcons: Boolean,
     allowPullDown: Boolean,
 ): NestedScrollConnection {
-    val window = (LocalContext.current as? Activity)?.window
+    val window = LocalActivity.current?.window
     val view = LocalView.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val bars = remember(window, view) { window?.let { LauncherStatusBar(it, view, autoHide) } }

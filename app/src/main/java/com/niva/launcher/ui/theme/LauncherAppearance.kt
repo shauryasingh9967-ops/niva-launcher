@@ -1,6 +1,6 @@
 package com.niva.launcher.ui.theme
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import android.app.WallpaperColors
 import android.app.WallpaperManager
 import android.content.BroadcastReceiver
@@ -105,7 +105,7 @@ internal fun rememberWallpaperBlurAvailable(): Boolean {
 internal fun WallpaperBlur(radius: Dp) {
     val context = LocalContext.current
     val view = LocalView.current
-    val window = (context as? Activity)?.window
+    val window = LocalActivity.current?.window
     if (window == null || view.isInEditMode || Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
     val radiusPx = with(LocalDensity.current) { radius.roundToPx() }.coerceIn(0, 150)
     // Background blur is part of DecorView, unlike FLAG_BLUR_BEHIND's separate

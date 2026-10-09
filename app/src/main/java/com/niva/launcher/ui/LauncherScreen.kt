@@ -1,7 +1,7 @@
 package com.niva.launcher.ui
 
 import android.Manifest
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import android.app.KeyguardManager
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -170,7 +170,7 @@ fun LauncherRoute(
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            (context as? Activity)?.let(viewModel.privateSpaceController::cancelAuthentication)
+            LocalActivity.current?.let(viewModel.privateSpaceController::cancelAuthentication)
             viewModel.privateSpaceController.close()
         }
     }
@@ -294,7 +294,7 @@ fun LauncherRoute(
             }
         },
         closePrivateSpace = viewModel.privateSpaceController::close,
-        openPrivateSpaceSettings = { (context as? Activity)?.let(viewModel.privateSpaceController::openSettings) },
+        openPrivateSpaceSettings = { LocalActivity.current?.let(viewModel.privateSpaceController::openSettings) },
         reorderPrivateApps = viewModel::reorderPrivateApps,
         resetPrivateSpaceAppearance = viewModel::resetPrivateSpaceAppearance,
         reorderWorkApps = viewModel::reorderWorkApps,
@@ -327,7 +327,7 @@ fun LauncherRoute(
                 breezyRepository.installedPackage() == null -> viewModel.refreshWeather()
                 ContextCompat.checkSelfPermission(context, BreezyWeatherRepository.READ_PERMISSION) == PackageManager.PERMISSION_GRANTED ->
                     viewModel.refreshWeather()
-                weatherPermissionRequested && (context as? Activity)?.let {
+                weatherPermissionRequested && LocalActivity.current?.let {
                     ActivityCompat.shouldShowRequestPermissionRationale(it, BreezyWeatherRepository.READ_PERMISSION)
                 } != true -> openSystemApp(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                     Uri.fromParts("package", context.packageName, null)))
@@ -467,7 +467,7 @@ fun LauncherRoute(
         // cross-task/back-to-home animation of this regular settings Activity.
         val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
         SideEffect {
-            (context as? Activity)?.window?.let { window ->
+            LocalActivity.current?.window?.let { window ->
                 WindowInsetsControllerCompat(window, launchView).apply {
                     isAppearanceLightStatusBars = lightBars
                     isAppearanceLightNavigationBars = lightBars
