@@ -160,6 +160,7 @@ fun LauncherRoute(
     val launchView = LocalView.current
     val appTransitions = LocalAppTransitions.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycle, viewModel) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
@@ -223,9 +224,9 @@ fun LauncherRoute(
         if (!state.locked && (state.accessible || settings.exposesApps)) { ready(); return }
         val currentActivity = activity ?: return
         controller.unlock(currentActivity, authenticate = settings.protectsApps) {
-            currentActivity.lifecycleScope.launch {
+            lifecycleOwner.lifecycleScope.launch {
                 yield()
-                activity.lifecycle.withResumed {
+                lifecycleOwner.lifecycle.withResumed {
                     if (controller.state.value.user == user && !controller.state.value.locked &&
                         viewModel.uiState.value.settings.privateSpace.enabled) ready()
                 }
@@ -283,11 +284,11 @@ fun LauncherRoute(
             else activity?.let { a ->
                 viewModel.privateSpaceController.unlock(a, authenticate = forceAuthentication || settings.protectsApps,
                     forceAuthentication = forceAuthentication) {
-                    a.lifecycleScope.launch {
+                    lifecycleOwner.lifecycleScope.launch {
                         // Availability can arrive while Android's credential Activity is still
                         // closing. Let NavHost receive RESUME before its guarded navigation.
                         yield()
-                        a.lifecycle.withResumed {
+                        lifecycleOwner.lifecycle.withResumed {
                             if (viewModel.privateSpaceController.state.value.accessible) ready()
                         }
                     }
@@ -395,7 +396,7 @@ fun LauncherRoute(
         rememberShortcut = viewModel::rememberShortcut,
         updatePopup = viewModel::updatePopup,
         addPopupWidget = { owner, defaults ->
-            activity?.lifecycleScope?.launch {
+            lifecycleOwner.lifecycleScope.launch {
                 if (viewModel.ensurePopup(owner, defaults)) openSystemApp(Intent(context, WidgetSetupActivity::class.java)
                     .putExtra(WidgetSetupActivity.EXTRA_POPUP_OWNER, owner.key))
                 else Toast.makeText(context, R.string.settings_storage_save_error, Toast.LENGTH_SHORT).show()
