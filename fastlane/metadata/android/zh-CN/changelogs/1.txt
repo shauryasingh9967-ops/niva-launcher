@@ -1,0 +1,5 @@
+Grace Launcher 首个版本。
+• 常用应用与字母索引浏览
+• 日程安排、应用通知和音乐控制
+• Material You 配色、图标包和文件夹
+• 可选的 Breezy Weather 天气集成

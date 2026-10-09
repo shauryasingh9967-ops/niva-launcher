@@ -1,0 +1,6 @@
+Grace Launcher 1.1.5
+• 重做 Grace Button，增加更多按钮手势、功能和灵动可爱的动画
+• 新增桌面手势：上滑、下滑和双击屏幕
+• Icon Designer 支持旋转图标
+• 新增 Work Profile（工作资料）支持
+• 新增意大利语翻译

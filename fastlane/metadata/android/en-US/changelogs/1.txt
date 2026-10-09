@@ -1,0 +1,5 @@
+First release of Grace Launcher.
+• Favorite apps and alphabetical app browsing
+• Calendar agenda, notifications and music controls
+• Material You colors, icon packs and folders
+• Optional weather integration with Breezy Weather

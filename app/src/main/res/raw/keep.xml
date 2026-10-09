@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Legal notices stay bundled even though their individual UI links are hidden. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/settings_framework_licenses,@raw/settings_material_symbols_license" />

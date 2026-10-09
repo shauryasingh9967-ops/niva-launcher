@@ -1,0 +1,1 @@
+A simple launcher with an app list, calendar agenda and music controls

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GraceLauncher" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+    <!-- Android 12+ supplies the translucent HOME variant for background blur. -->
+    <style name="Theme.GraceLauncher.Home" parent="Theme.GraceLauncher" />
+
+    <!-- Settings is a regular application task, never a second HOME task. -->
+    <style name="Theme.GraceLauncher.Settings" parent="Theme.GraceLauncher">
+        <!-- Only the clock preview is transparent; ordinary settings remain opaque. -->
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowDisablePreview">false</item>
+    </style>
+</resources>

@@ -1,0 +1,4 @@
+Grace Launcher 1.1.2
+• 新版 Icon Designer，支持调节桌面图标大小
+• 新的搜索组件，可以搜索应用和联系人，支持模糊搜索
+• 少量 UI 和 bug 修复

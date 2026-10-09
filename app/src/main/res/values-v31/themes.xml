@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Background blur requires a translucent Window, not just a transparent
+         background drawable. Keep this local to HOME, not settings or widget setup. -->
+    <style name="Theme.GraceLauncher.Home" parent="Theme.GraceLauncher">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+</resources>

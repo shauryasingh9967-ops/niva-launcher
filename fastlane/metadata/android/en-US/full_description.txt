@@ -1,0 +1,11 @@
+Niva Launcher is a free and open-source Android launcher with a clean, list-based home screen.
+
+• Keep your favorite apps close and browse with the alphabet rail.
+• View upcoming calendar events and notifications.
+• Control your music from the home screen.
+• Customize colors, icons and folders with Material You.
+• See the weather with Breezy Weather, installed and configured separately.
+
+No ads or tracking. Niva Launcher does not request Internet access. Calendar and notification access are optional and enable the corresponding features.
+
+Requires Android 9 or later.

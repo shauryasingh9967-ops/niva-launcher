@@ -1,0 +1,16 @@
+Google Material Symbols Outlined — weather icons
+
+Copyright Google LLC. Licensed under the Apache License, Version 2.0.
+Upstream: https://github.com/google/material-design-icons
+Revision: bd8cb85bd4bad964fe6918f79665bb40c3a8efef
+
+These local VectorDrawables preserve the official Outlined 24px paths and
+960px viewport. The XML theme tint is removed and the path fill is set to
+black so Compose supplies the current UI color; the shapes are unchanged.
+
+Symbols: sunny, clear_night, partly_cloudy_day, partly_cloudy_night, cloud,
+rainy, weather_snowy, thunderstorm, foggy, air, weather_hail, weather_mix.
+
+The full license is included in the APK at
+res/raw/settings_material_symbols_license.txt. Source links and the condition
+mapping are recorded in third_party/material-symbols/NOTICE.md.

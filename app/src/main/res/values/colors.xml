@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default full-colour icon base; themed icons are tinted by the launcher. -->
+    <color name="launcher_icon_background">#FF2B2F77</color>
+</resources>

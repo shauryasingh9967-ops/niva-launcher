@@ -1,0 +1,60 @@
+{
+  "retrieved": "2026-09-26",
+  "license": "OFL-1.1",
+  "fonts": [
+    {
+      "sha256": "9255abdb5f393bc51e101abbd07a716a977fd3e15472b1b84b260f426a342bfd",
+      "family": "josefinsans",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/josefinsans/JosefinSans%5Bwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/josefinsans/OFL.txt",
+      "file": "app/src/main/assets/fonts/josefin_sans.ttf",
+      "bytes": 118588,
+      "original": "JosefinSans[wght].ttf"
+    },
+    {
+      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+      "family": "notosans",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosans/NotoSans%5Bwdth%2Cwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosans/OFL.txt",
+      "file": "app/src/main/assets/fonts/noto_sans.ttf",
+      "bytes": 2049096,
+      "original": "NotoSans[wdth,wght].ttf"
+    },
+    {
+      "sha256": "63111b5b2e074dd48cc67692e0a2726d86ee94c1c37fe8598257b7b4e87e869e",
+      "family": "notosansarabic",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansarabic/NotoSansArabic%5Bwdth%2Cwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansarabic/OFL.txt",
+      "file": "app/src/main/assets/fonts/noto_sans_arabic.ttf",
+      "bytes": 844676,
+      "original": "NotoSansArabic[wdth,wght].ttf"
+    },
+    {
+      "sha256": "7ef36a2c3593758cdb622e1bdef4f84523e92fbc3ccc667438dd80ff54c2de88",
+      "family": "notosanshebrew",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanshebrew/NotoSansHebrew%5Bwdth%2Cwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanshebrew/OFL.txt",
+      "file": "app/src/main/assets/fonts/noto_sans_hebrew.ttf",
+      "bytes": 112640,
+      "original": "NotoSansHebrew[wdth,wght].ttf"
+    },
+    {
+      "sha256": "14ec4af41f27482216d1c2229f417ff9b1425e1babb014e57d1d40d03229853e",
+      "family": "notosansdevanagari",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansdevanagari/NotoSansDevanagari%5Bwdth%2Cwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansdevanagari/OFL.txt",
+      "file": "app/src/main/assets/fonts/noto_sans_devanagari.ttf",
+      "bytes": 641944,
+      "original": "NotoSansDevanagari[wdth,wght].ttf"
+    },
+    {
+      "sha256": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
+      "family": "notosansthai",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansthai/NotoSansThai%5Bwdth%2Cwght%5D.ttf",
+      "licenseSource": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansthai/OFL.txt",
+      "file": "app/src/main/assets/fonts/noto_sans_thai.ttf",
+      "bytes": 218652,
+      "original": "NotoSansThai[wdth,wght].ttf"
+    }
+  ]
+}
