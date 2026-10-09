@@ -32,6 +32,19 @@ jobs:
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --no-daemon
 
+      - name: Build release APK
+        run: |
+          echo "${{ secrets.NIVA_KEYSTORE_BASE64 }}" | base64 -d > /tmp/niva-release.keystore
+          export NIVA_KEYSTORE_PATH=/tmp/niva-release.keystore
+          export NIVA_KEYSTORE_PASSWORD="${{ secrets.NIVA_KEYSTORE_PASSWORD }}"
+          export NIVA_KEY_ALIAS="${{ secrets.NIVA_KEY_ALIAS }}"
+          export NIVA_KEY_PASSWORD="${{ secrets.NIVA_KEY_PASSWORD }}"
+          ./gradlew :app:assembleRelease --no-daemon
+        env:
+          NIVA_KEYSTORE_PASSWORD: ${{ secrets.NIVA_KEYSTORE_PASSWORD }}
+          NIVA_KEY_ALIAS: ${{ secrets.NIVA_KEY_ALIAS }}
+          NIVA_KEY_PASSWORD: ${{ secrets.NIVA_KEY_PASSWORD }}
+
       - name: Run unit tests
         if: ${{ !cancelled() }}
         run: ./gradlew :app:testDebugUnitTest --no-daemon
@@ -46,4 +59,12 @@ jobs:
         with:
           name: niva-launcher-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: warn
+
+      - name: Upload release APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: niva-launcher-release-apk
+          path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: warn
