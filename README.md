@@ -13,8 +13,6 @@
 </div>
 
 Niva Launcher is a minimalist Android launcher inspired by Niagara Launcher's clean, list-based design.
-It is a fork of [Grace Launcher](https://github.com/Galaxy-rio/GraceLauncher) by Galaxy-rio, licensed under **GPL-3.0**,
-rebranded and extended with a focus on privacy, calm design, and distraction-free use.
 
 ## Features
 
