@@ -33,8 +33,11 @@ internal fun PresetSettings(
     actions: LauncherActions,
     onBack: () -> Unit,
 ) {
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    // Configuration-aware strings for use in non-composable callbacks below.
+    val strPresetSaveFailed = stringResource(R.string.preset_save_failed)
+    val strPresetApplied = stringResource(R.string.preset_applied)
+    val strPresetApplyFailed = stringResource(R.string.preset_apply_failed)
     val presets by actions.presets.collectAsState()
     var showNameDialog by remember { mutableStateOf(false) }
     var deleteTarget by remember { mutableStateOf<AppearancePreset?>(null) }
@@ -62,7 +65,7 @@ internal fun PresetSettings(
                 scope.launch {
                     val ok = actions.savePreset(name)
                     busy = false
-                    if (!ok) message = context.getString(R.string.preset_save_failed)
+                    if (!ok) message = strPresetSaveFailed
                 }
             },
         )
@@ -95,7 +98,7 @@ internal fun PresetSettings(
                     scope.launch {
                         val ok = actions.applyPreset(preset)
                         busy = false
-                        message = context.getString(if (ok) R.string.preset_applied else R.string.preset_apply_failed)
+                        message = if (ok) strPresetApplied else strPresetApplyFailed
                     }
                 }) { Text(stringResource(R.string.preset_apply)) }
             },
