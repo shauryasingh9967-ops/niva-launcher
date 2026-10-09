@@ -220,7 +220,7 @@ fun LauncherRoute(
         val state = controller.state.value
         if (!settings.enabled || user == null || user != state.user) return
         if (!state.locked && (state.accessible || settings.exposesApps)) { ready(); return }
-        val activity = context as? androidx.activity.ComponentActivity ?: return
+        val activity = LocalActivity.current ?: return
         controller.unlock(activity, authenticate = settings.protectsApps) {
             activity.lifecycleScope.launch {
                 yield()
@@ -279,7 +279,7 @@ fun LauncherRoute(
         requestPrivateSpace = { forceAuthentication, ready ->
             val settings = viewModel.uiState.value.settings.privateSpace
             if (settings.exposesApps && !forceAuthentication) ready()
-            else (context as? androidx.activity.ComponentActivity)?.let { activity ->
+            else LocalActivity.current?.let { activity ->
                 viewModel.privateSpaceController.unlock(activity, authenticate = forceAuthentication || settings.protectsApps,
                     forceAuthentication = forceAuthentication) {
                     activity.lifecycleScope.launch {
@@ -394,7 +394,7 @@ fun LauncherRoute(
         rememberShortcut = viewModel::rememberShortcut,
         updatePopup = viewModel::updatePopup,
         addPopupWidget = { owner, defaults ->
-            (context as? androidx.activity.ComponentActivity)?.lifecycleScope?.launch {
+            LocalActivity.current?.lifecycleScope?.launch {
                 if (viewModel.ensurePopup(owner, defaults)) openSystemApp(Intent(context, WidgetSetupActivity::class.java)
                     .putExtra(WidgetSetupActivity.EXTRA_POPUP_OWNER, owner.key))
                 else Toast.makeText(context, R.string.settings_storage_save_error, Toast.LENGTH_SHORT).show()
