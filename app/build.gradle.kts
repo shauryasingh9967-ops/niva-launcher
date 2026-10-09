@@ -21,8 +21,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            // Release signing via environment variables (populated from GitHub Secrets in CI).
+            // The keystore file and passwords are NEVER committed to the repository.
+            val ksPath = System.getenv("NIVA_KEYSTORE_PATH")
+            if (!ksPath.isNullOrBlank()) {
+                storeFile = file(ksPath)
+                storePassword = System.getenv("NIVA_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("NIVA_KEY_ALIAS")
+                keyPassword = System.getenv("NIVA_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             optimization {
                 enable = true
             }
