@@ -8,13 +8,13 @@ plugins {
 
 android {
     namespace = "com.galaxyrio.gracelauncher"
-    compileSdk = 36
+    compileSdk = 37
     buildToolsVersion = "36.1.0"
 
     defaultConfig {
         applicationId = "com.niva.launcher"
         minSdk = 28
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 8
         versionName = "1.2.0-niva"
 
