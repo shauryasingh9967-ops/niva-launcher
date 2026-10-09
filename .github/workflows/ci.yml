@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,11 @@ jobs:
           java-version: 17
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager --install "platforms;android-37" "build-tools;36.1.0" 2>&1 | tail -3
 
       - name: Make gradlew executable
         run: chmod +x gradlew
@@ -33,12 +37,10 @@ jobs:
         run: ./gradlew :app:testDebugUnitTest --no-daemon
 
       - name: Run lint
-
         if: ${{ !cancelled() }}
         run: ./gradlew :app:lintDebug --no-daemon
 
       - name: Upload debug APK
-
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
