@@ -52,4 +52,3 @@ See [docs/PERMISSIONS.md](docs/PERMISSIONS.md) for every permission and why it e
 ## License
 
 GPL-3.0-or-later — see [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
-The original Grace Launcher README is preserved in [docs/UPSTREAM_README_GRACE.md](docs/UPSTREAM_README_GRACE.md).
