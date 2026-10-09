@@ -1,0 +1,30 @@
+name: Unpack project upload
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unpack project zip into repo root
+        run: |
+          unzip -o niva-upload.zip -d /tmp/unpacked
+          shopt -s dotglob
+          cp -r /tmp/unpacked/. .
+          rm -rf /tmp/unpacked niva-upload.zip
+          # remove this one-shot workflow so the final tree stays clean
+          rm -f .github/workflows/unpack.yml
+
+      - name: Commit unpacked tree
+        run: |
+          git config user.name "Shaurya Singh"
+          git config user.email "shauryasingh9967@gmail.com"
+          git add -A
+          git commit -m "Niva Launcher: complete project tree" || echo "nothing to commit"
+          git push origin HEAD:main
