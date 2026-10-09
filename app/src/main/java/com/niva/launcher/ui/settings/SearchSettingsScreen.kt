@@ -42,6 +42,7 @@ import com.niva.launcher.ui.LauncherUiState
 internal fun SearchSettingsScreen(uiState: LauncherUiState, actions: LauncherActions, onBack: () -> Unit) {
     val settings = uiState.settings.search
     val context = LocalContext.current
+    val activity = LocalActivity.current
     val contacts = remember(context) { SearchContacts(context) }
     var hasAccess by remember { mutableStateOf(contacts.hasAccess()) }
     var permissionRequested by rememberSaveable { mutableStateOf(false) }
@@ -77,7 +78,7 @@ internal fun SearchSettingsScreen(uiState: LauncherUiState, actions: LauncherAct
                 SettingsToggleItem(stringResource(R.string.search_contacts), stringResource(R.string.search_contacts_summary),
                     settings.contacts && hasAccess, 1, 6, "search_contacts", enabled = settings.enabled) { value ->
                     if (!value || contacts.hasAccess()) update { it.copy(contacts = value) }
-                    else if (permissionRequested && LocalActivity.current?.let {
+                    else if (permissionRequested && activity?.let {
                         ActivityCompat.shouldShowRequestPermissionRationale(it, Manifest.permission.READ_CONTACTS)
                     } == false) {
                         systemSettings.launch(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.packageName, null)))
