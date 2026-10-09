@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: write
-  workflows: write
 
 jobs:
   unpack:
@@ -13,14 +12,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Unpack project zip into repo root
+      - name: Show .github files bundled in the zip
         run: |
           unzip -o niva-upload.zip -d /tmp/unpacked
+          echo "=== .github tree ==="
+          find /tmp/unpacked/.github -type f 2>/dev/null | sort || echo "(no .github directory)"
+          if [ -d /tmp/unpacked/.github/workflows ]; then
+            for f in $(find /tmp/unpacked/.github/workflows -type f | sort); do
+              echo "----- BEGIN ${f#/tmp/unpacked/} -----"
+              cat "$f"
+              echo "----- END ${f#/tmp/unpacked/} -----"
+            done
+          fi
+
+      - name: Unpack project zip into repo root
+        run: |
           shopt -s dotglob
           cp -r /tmp/unpacked/. .
           rm -rf /tmp/unpacked niva-upload.zip
           # remove this one-shot workflow so the final tree stays clean
           rm -f .github/workflows/unpack.yml
+          # NOTE: the Actions token cannot create/update workflow files, so
+          # the project's own workflow files are excluded here and will be
+          # restored via the web UI afterwards.
+          rm -f .github/workflows/*.yml .github/workflows/*.yaml
 
       - name: Commit unpacked tree
         run: |
