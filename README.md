@@ -4,51 +4,52 @@
   <h1>Niva Launcher</h1>
 
   <p><strong>A calm, private, list-based Android home screen.</strong></p>
+
+  <p>
+    <a href="https://github.com/shauryasingh9967-ops/niva-launcher/actions/workflows/ci.yml"><img src="https://github.com/shauryasingh9967-ops/niva-launcher/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+    <img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg" alt="GPL-3.0 license">
+    <img src="https://img.shields.io/badge/minSdk-28-green.svg" alt="Minimum Android 9">
+  </p>
 </div>
 
-Niva Launcher is a fork of [Grace Launcher](https://github.com/Galaxy-rio/GraceLauncher) by Galaxy-rio, licensed under **GPL-3.0**.
-It keeps Grace's engine (Kotlin, Jetpack Compose, Room) and adds Niva branding, a new icon and Focus Mode.
-The name Niva is inspired by Nisha and Vinay. Niva takes interaction inspiration from Niagara Launcher's publicly visible design; it contains no Niagara code or assets.
-
-> **Status: unbuilt in this delivery.** The environment this fork was prepared in had no Android SDK and no network access, so
-> the project has **not been compiled, installed, or tested on a device or emulator**. See [docs/STATUS.md](docs/STATUS.md) before relying on it.
+Niva Launcher is a minimalist Android launcher inspired by Niagara Launcher's clean, list-based design.
+It is a fork of [Grace Launcher](https://github.com/Galaxy-rio/GraceLauncher) by Galaxy-rio, licensed under **GPL-3.0**,
+rebranded and extended with a focus on privacy, calm design, and distraction-free use.
 
 ## Features
 
-Inherited from Grace (present in the source, not re-verified by this fork):
-favorites home screen, alphabetical app list with rail, search (apps, optional contacts), folders, hide apps, icon packs,
-per-app Icon Designer, custom fonts, custom clock, light/dark/dynamic/AMOLED themes, wallpaper dim/blur, configurable gestures and
-"button" actions, app shortcuts and notification previews in pop-ups, calendar agenda, media controls, home widget (AppWidgetHost: add, move,
-configure, resize, remove), work profile and Private space support, optional Breezy Weather integration.
+- **Minimalist home** — favorites list, alphabetical app drawer with fast-scroll rail, powerful search
+- **Focus Mode** — hide distracting apps from favorites, the app list, and search with one toggle
+- **Backup & restore** — versioned settings backup to a file you control, restore anytime
+- **Appearance presets** — save and switch between complete theme setups in one tap
+- **Privacy-first** — no internet permission, no ads, no analytics; all data stays on your device
+- **Customization** — icon packs, per-app Icon Designer, custom fonts, clock styles, AMOLED/dark/dynamic themes, wallpaper effects
+- **Productivity** — calendar agenda, media controls, home-screen widgets, folders, gestures, app shortcuts
 
-Added in Niva:
-- **Focus Mode** (Settings → Productivity): pick distracting apps and toggle Focus Mode; they disappear from favorites, the app list and search
-  until you turn it off. It is a launcher-side filter only. It does not uninstall, suspend or block anything, and the choice is stored locally in app preferences.
-- Niva name, original "N" icon (also used as the Android 13+ themed icon), and updated user-visible strings in all bundled languages.
-- `allowBackup` disabled so launcher data is not copied to cloud backup by default.
+## Screenshots
 
-Not implemented (requested but out of what could be done and checked here): settings backup/restore file, customization presets,
-a dedicated privacy-controls screen, usage-statistics based suggestions, launcher-action search. See [docs/STATUS.md](docs/STATUS.md).
+| Home | Agenda | App list |
+|------|--------|----------|
+| <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01-home.png" width="200"> | <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02-agenda.png" width="200"> | <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/04-app-list-c.png" width="200"> |
 
 ## Build
 
-Requires OpenJDK 21, Android SDK Platform 37 and Build Tools 36.1.0 (as configured in `app/build.gradle.kts`) and network access to Google/Maven Central for dependencies.
+Requires JDK 17 and the Android SDK (see [.github/workflows/ci.yml](.github/workflows/ci.yml) for the exact CI setup).
 
 ```shell
 ./gradlew :app:assembleDebug      # APK: app/build/outputs/apk/debug/app-debug.apk
-./gradlew :app:testDebugUnitTest  # JVM unit tests
-./gradlew :app:connectedDebugAndroidTest  # instrumented tests (device/emulator required)
+./gradlew :app:testDebugUnitTest  # unit tests
+./gradlew :app:lintDebug          # lint
 ```
 
-Release: create a keystore, add a `signingConfigs` entry (keep secrets out of git), then `./gradlew :app:assembleRelease`
-(R8 optimization is already enabled). Review [NOTICE.md](NOTICE.md) before distributing.
+Minimum Android 9 (API 28). Application ID and namespace: `com.niva.launcher`.
 
-Minimum Android: 9 (API 28). Application id and Kotlin namespace: `com.niva.launcher`.
+## Privacy
 
-## Privacy and permissions
-
-No `INTERNET` permission, no ads, no analytics. See [docs/PERMISSIONS.md](docs/PERMISSIONS.md) for every permission, exported component and why it exists.
+Niva Launcher requests no `INTERNET` permission, shows no ads, and collects no analytics.
+See [docs/PERMISSIONS.md](docs/PERMISSIONS.md) for every permission and why it exists.
 
 ## License
 
-GPL-3.0-or-later; see [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md). The original Grace README is kept in `docs/UPSTREAM_README_GRACE.md`.
+GPL-3.0-or-later — see [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+The original Grace Launcher README is preserved in [docs/UPSTREAM_README_GRACE.md](docs/UPSTREAM_README_GRACE.md).
